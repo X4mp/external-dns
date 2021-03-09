@@ -5,6 +5,7 @@ import (
 	"fmt"
 	anexia "github.com/anexia-it/go-anxcloud/pkg"
 	"github.com/anexia-it/go-anxcloud/pkg/clouddns"
+	"github.com/anexia-it/go-anxcloud/pkg/clouddns/zone"
 	"sigs.k8s.io/external-dns/endpoint"
 	"sigs.k8s.io/external-dns/plan"
 	"sigs.k8s.io/external-dns/provider"
@@ -12,6 +13,12 @@ import (
 import "github.com/anexia-it/go-anxcloud/pkg/client"
 
 var _ provider.Provider = (*AnexiaProvider)(nil)
+
+type AnexiaChangeSet struct {
+	Action string
+	ZoneName string
+	Record zone.RecordRequest
+}
 
 type AnexiaProvider struct {
 	*provider.BaseProvider
@@ -46,6 +53,29 @@ func (anx *AnexiaProvider) ApplyChanges(ctx context.Context, changes *plan.Chang
 	panic("implement me")
 }
 
+func (anx *AnexiaProvider) newChangeSet(action string, endpoints []*endpoint.Endpoint) []*AnexiaChangeSet {
+	chanes := make([]*AnexiaChangeSet, len(endpoints))
+
+	// TODO investigate ProviderSpecifics to transport region value
+	for _, e := range endpoints {
+		recordRequest := zone.RecordRequest{
+			Name:   e.DNSName,
+			Type:   e.RecordType,
+			RData:  e.Targets[0],
+		}
+		if e.RecordTTL.IsConfigured() {
+			recordRequest.TTL = int(e.RecordTTL)
+		}
+
+		change := &AnexiaChangeSet{
+			Action:   action,
+			Record:   zone.RecordRequest{},
+		}
+		chanes = append(chanes, change)
+	}
+	return chanes
+}
+
 func NewAnexiaProvider() (*AnexiaProvider, error) {
 	anxClient, err := client.New(client.AuthFromEnv(false))
 	if err != nil {
@@ -58,5 +88,4 @@ func NewAnexiaProvider() (*AnexiaProvider, error) {
 
 	return provider, nil
 }
-
 
