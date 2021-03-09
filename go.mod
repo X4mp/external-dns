@@ -15,6 +15,7 @@ require (
 	github.com/alecthomas/kingpin v2.2.5+incompatible
 	github.com/alecthomas/repr v0.0.0-20200325044227-4184120f674c // indirect
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.357
+	github.com/anexia-it/go-anxcloud v0.3.16
 	github.com/aws/aws-sdk-go v1.31.4
 	github.com/bodgit/tsig v0.0.2
 	github.com/cloudflare/cloudflare-go v0.10.1
@@ -73,6 +74,7 @@ require (
 )
 
 replace (
+	github.com/anexia-it/go-anxcloud => github.com/X4mp/go-anxcloud v0.3.17-0.20210309072307-c0c679260ef2
 	github.com/golang/glog => github.com/kubermatic/glog-logrus v0.0.0-20180829085450-3fa5b9870d1d
 	// TODO(jpg): Pin gRPC to work around breaking change until all dependences are upgraded: https://github.com/etcd-io/etcd/issues/11563
 	google.golang.org/grpc => google.golang.org/grpc v1.26.0
