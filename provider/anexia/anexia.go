@@ -2,6 +2,7 @@ package anexia
 
 import (
 	"context"
+	"fmt"
 	anexia "github.com/anexia-it/go-anxcloud/pkg"
 	"github.com/anexia-it/go-anxcloud/pkg/clouddns"
 	"sigs.k8s.io/external-dns/endpoint"
@@ -18,7 +19,27 @@ type AnexiaProvider struct {
 }
 
 func (anx *AnexiaProvider) Records(ctx context.Context) ([]*endpoint.Endpoint, error) {
-	panic("implement me")
+	zones, err := anx.Client.Zone().List(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	endpoints := []*endpoint.Endpoint{}
+	for _, zone := range zones {
+		records, err := anx.Client.Zone().ListRecords(ctx, zone.Name)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, r := range records {
+			if provider.SupportedRecordType(r.Type) {
+				name := fmt.Sprintf("%s.%s", r.Name, zone.Name)
+				endpoints = append(endpoints, endpoint.NewEndpoint(name, r.Type, r.RData))
+			}
+		}
+	}
+
+	return endpoints, nil
 }
 
 func (anx *AnexiaProvider) ApplyChanges(ctx context.Context, changes *plan.Changes) error {
