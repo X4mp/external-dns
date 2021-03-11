@@ -73,7 +73,10 @@ github.com/Shopify/logrus-bugsnag v0.0.0-20171204204709-577dee27f20d/go.mod h1:H
 github.com/Shopify/sarama v1.19.0/go.mod h1:FVkBWblsNy7DGZRfXLU0O9RCGt5g3g3yEuWXgklEdEo=
 github.com/Shopify/toxiproxy v2.1.4+incompatible/go.mod h1:OXgGpZ6Cli1/URJOF1DMxUHB2q5Ap20/P/eIdh4G0pI=
 github.com/VividCortex/gohistogram v1.0.0/go.mod h1:Pf5mBqqDxYaXu3hDrrU+w6nw50o/4+TcAqDqk/vUH7g=
+github.com/X4mp/go-anxcloud v0.3.17-0.20210309072307-c0c679260ef2 h1:e2nrrEnku5c7clXwHp1/pARCdOlmv3navSRqWUtB6t4=
 github.com/X4mp/go-anxcloud v0.3.17-0.20210309072307-c0c679260ef2/go.mod h1:Rmu6dVRaZr2Odyb1ZZVZN01OnnUOKGn31VhetBcLQUU=
+github.com/X4mp/go-anxcloud v0.3.17-0.20210311095234-39bc120d7b33 h1:14aR9qFKCOOYu6eWriNVAEzmigOvByFT4/ZooPTurgA=
+github.com/X4mp/go-anxcloud v0.3.17-0.20210311095234-39bc120d7b33/go.mod h1:Rmu6dVRaZr2Odyb1ZZVZN01OnnUOKGn31VhetBcLQUU=
 github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5/go.mod h1:SkGFH1ia65gfNATL8TAiHDNxPzPdmEL5uirI2Uyuz6c=
 github.com/agnivade/levenshtein v1.0.1/go.mod h1:CURSv5d9Uaml+FovSIICkLbAUZ9S4RqaHDIsdSBg7lM=
 github.com/ahmetb/gen-crd-api-reference-docs v0.1.5/go.mod h1:P/XzJ+c2+khJKNKABcm2biRwk2QAuwbLf8DlXuaL7WM=
@@ -791,6 +794,7 @@ github.com/ryanuber/columnize v0.0.0-20160712163229-9b3edd62028f/go.mod h1:sm1tb
 github.com/samuel/go-zookeeper v0.0.0-20190923202752-2cc03de413da/go.mod h1:gi+0XIa01GRL2eRQVjQkKGqKF3SF9vZR/HnPullcV2E=
 github.com/sanyu/dynectsoap v0.0.0-20181203081243-b83de5edc4e0 h1:vOcHdR1nu7DO4BAx1rwzdHV7jQTzW3gqcBT5qxHSc6A=
 github.com/sanyu/dynectsoap v0.0.0-20181203081243-b83de5edc4e0/go.mod h1:FeplEtXXejBYC4NPAFTrs5L7KuK+5RL9bf5nB2vZe9o=
+github.com/satori/go.uuid v1.2.0 h1:0uYX9dsZ2yD7q2RtLRtPSdGDWzjeM3TbMJP9utgA0ww=
 github.com/satori/go.uuid v1.2.0/go.mod h1:dA0hQrYB0VpLJoorglMZABFdXlWrHn1NEOzdhQKdks0=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210127161313-bd30bebeac4f h1:WSnaD0/cvbKJgSTYbjAPf4RJXVvNNDAwVm+W8wEmnGE=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.7.0.20210127161313-bd30bebeac4f/go.mod h1:CJJ5VAbozOl0yEw7nHB9+7BXTJbIn6h7W+f6Gau5IP8=

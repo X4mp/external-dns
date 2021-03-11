@@ -6,10 +6,8 @@ import (
 	anexia "github.com/anexia-it/go-anxcloud/pkg"
 	"github.com/anexia-it/go-anxcloud/pkg/clouddns"
 	"github.com/anexia-it/go-anxcloud/pkg/clouddns/zone"
-	"github.com/opencontainers/runc/Godeps/_workspace/src/github.com/Sirupsen/logrus"
 	uuid "github.com/satori/go.uuid"
 	log "github.com/sirupsen/logrus"
-	"google.golang.org/genproto/googleapis/privacy/dlp/v2"
 	"sigs.k8s.io/external-dns/endpoint"
 	"sigs.k8s.io/external-dns/plan"
 	"sigs.k8s.io/external-dns/provider"
@@ -52,7 +50,11 @@ func (anx *AnexiaProvider) Records(ctx context.Context) ([]*endpoint.Endpoint, e
 		for _, r := range records {
 			if provider.SupportedRecordType(r.Type) {
 				name := fmt.Sprintf("%s.%s", r.Name, zone.Name)
-				endpoints = append(endpoints, endpoint.NewEndpoint(name, r.Type, r.RData))
+				if r.TTL != nil {
+					endpoints = append(endpoints, endpoint.NewEndpointWithTTL(name, r.Type, endpoint.TTL(*r.TTL), r.RData))
+				} else {
+					endpoints = append(endpoints, endpoint.NewEndpoint(name, r.Type, r.RData))
+				}
 			}
 		}
 	}
@@ -71,7 +73,6 @@ func (anx *AnexiaProvider) ApplyChanges(ctx context.Context, changes *plan.Chang
 func (anx *AnexiaProvider) newChangeSet(action string, endpoints []*endpoint.Endpoint) []*AnexiaChangeSet {
 	changes := make([]*AnexiaChangeSet, len(endpoints))
 
-	// TODO investigate ProviderSpecifics to transport region value
 	for _, e := range endpoints {
 		recordRequest := zone.RecordRequest{
 			Name:   e.DNSName,
@@ -114,8 +115,6 @@ func (anx *AnexiaProvider) applyChanges(ctx context.Context, requestChangeSet []
 			zoneRecordIDs[z.Name][r.Name] = r.Identifier
 		}
 	}
-
-
 
 	for _, change := range requestChangeSet {
 		_, zoneName := zoneIDName.FindZone(change.Record.Name)
