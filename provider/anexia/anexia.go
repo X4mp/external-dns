@@ -73,7 +73,7 @@ func (anx *AnexiaProvider) ApplyChanges(ctx context.Context, changes *plan.Chang
 func (anx *AnexiaProvider) newChangeSet(action string, endpoints []*endpoint.Endpoint) []*AnexiaChangeSet {
 	changes := make([]*AnexiaChangeSet, len(endpoints))
 
-	for _, e := range endpoints {
+	for i, e := range endpoints {
 		recordRequest := zone.RecordRequest{
 			Name:   e.DNSName,
 			Type:   e.RecordType,
@@ -87,7 +87,7 @@ func (anx *AnexiaProvider) newChangeSet(action string, endpoints []*endpoint.End
 			Action:   action,
 			Record:   recordRequest,
 		}
-		changes = append(changes, change)
+		changes[i] = change
 	}
 	return changes
 }
